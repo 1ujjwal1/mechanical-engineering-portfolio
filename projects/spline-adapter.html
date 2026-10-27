@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Motor-to-sprocket spline adapter design case study: OEM spline constraints, CAD development, sprocket selection, prototype fit and preliminary ANSYS safety-factor assessment.">
+  <meta name="theme-color" content="#090d12">
+  <title>Motor-to-Sprocket Spline Adapter | Ujjval Jha</title>
+  <link rel="stylesheet" href="spline-adapter-review.css">
+  <style>
+    .review-banner{border:1px solid #344353;background:#111923;padding:12px 15px;color:#bac7d3;font-size:12px;margin:18px 0 0}
+    .hero-media{width:100%;max-height:440px;object-fit:contain;background:#f1f2f4;border:1px solid var(--line);margin:22px 0 8px}
+    .process-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0}
+    .process-card{border:1px solid var(--line);background:#101720;padding:15px}
+    .process-card strong{display:block;color:#f0f4f7;margin-bottom:6px}
+    .process-card p{margin:0;font-size:13px}
+    .result-callout{display:flex;flex-wrap:wrap;align-items:center;gap:16px;border:1px solid var(--line);background:#111923;padding:18px;margin:18px 0}
+    .result-number{font-size:42px;font-weight:800;line-height:1;color:var(--accent)}
+    .result-callout p{margin:3px 0 0;font-size:12px}
+    .tag-note{font-size:11px;color:#8897a7}
+    @media(max-width:520px){.process-grid{grid-template-columns:1fr}.result-callout{align-items:flex-start}}
+  </style>
+</head>
+<body id="top">
+<header class="site-header"><div class="header-inner">
+  <a class="brand" href="../index.html"><span class="brand-mark">UJ</span><span>UJJVAL JHA<span class="muted"> / MECHANICAL</span></span></a>
+  <nav class="nav" aria-label="Case study navigation"><a href="../index.html">Portfolio</a><a href="#problem">Problem</a><a href="#design">Design</a><a href="#prototype">Prototype</a><a href="#fea">ANSYS</a><a class="contact" href="mailto:xenetronmac@gmail.com">Contact</a></nav>
+</div></header>
+<main class="container">
+  <section class="project-hero">
+    <div class="breadcrumb">PORTFOLIO REVIEW / CASE STUDY 05</div>
+    <div class="eyebrow">POWERTRAIN INTERFACE · DESIGN FOR MANUFACTURE</div>
+    <h1>Motor-to-Sprocket<br><span class="accent">Spline Adapter.</span></h1>
+    <p class="hero-copy">A constraint-led adapter project to connect the motor’s existing internal spline to a replaceable sprocket without modifying the motor. The work covers spline sourcing, CAD iteration, manufacturability, prototype fit and a preliminary ANSYS safety-factor result.</p>
+    <div class="badges"><span>SolidWorks CAD</span><span>Prototype fit check completed</span><span>OEM sourcing constraint</span><span>Preliminary ANSYS FOS</span></div>
+    <img class="hero-media" src="../assets/images/case-spline-adapter-representative-cad.png" alt="Initial CAD concept of a male spline adapter with a central body and four mounting ears">
+    <p class="small-note">Representative CAD concept for this case study. The revised flange design is shown later in the CAD development section.</p>
+    <div class="review-banner">Design status: initial prototype fit checked; updated CAD is under development for improved manufacturability. The available ANSYS factor-of-safety screenshot is preliminary and does not establish high-RPM or fatigue safety.</div>
+  </section>
+  <div class="project-layout">
+    <article class="project-content">
+      <section id="problem">
+        <h2>01. Problem statement</h2>
+        <p>The motor uses an existing internal spline, but a suitable off-the-shelf male spline component that also provides a practical sprocket interface was difficult to source. The goal was to bridge the motor spline to a replaceable sprocket while preserving the motor and avoiding a bespoke adapter for every final-drive ratio.</p>
+        <p>Because the sprocket transmits chain force at an offset from the motor support, the design also needs attention to overhang, bending moment, alignment and retention—not only the mating spline geometry.</p>
+        <div class="metric-grid">
+          <div class="metric"><span>MOTOR SIDE</span><strong>Existing internal spline</strong></div>
+          <div class="metric"><span>SPROCKET SIDE</span><strong>Replaceable interface</strong></div>
+          <div class="metric"><span>FIT CHECK</span><strong>Completed on prototype</strong></div>
+        </div>
+      </section>
+      <section id="constraints">
+        <h2>02. Design constraints</h2>
+        <ul>
+          <li>The motor manufacturer would not modify the motor shaft or housing.</li>
+          <li>No internal thread or retaining groove could be added to the motor output.</li>
+          <li>Welding to the motor was avoided due to concerns about heat and possible effects on motor components.</li>
+          <li>The adapter should engage the existing spline and avoid noticeable play at the initial fit check.</li>
+          <li>The sprocket should be replaceable when the final-drive ratio changes.</li>
+          <li>Keep the motor-side adapter common where possible, and use readily available sprockets rather than redesigning the whole interface for every ratio.</li>
+        </ul>
+        <h3>Supplied spline sourcing inputs</h3>
+        <p>These are the reference dimensions supplied during the OEM-component search. They are not a claim that an exact purchasable match has been verified.</p>
+        <table class="comparison"><thead><tr><th>Parameter</th><th>Reference value</th></tr></thead><tbody>
+          <tr><td>Spline module</td><td>1.0</td></tr><tr><td>Tooth count</td><td>18</td></tr><tr><td>Pressure angle</td><td>30°</td></tr><tr><td>Major diameter</td><td>19.3 mm</td></tr><tr><td>Minor diameter</td><td>16.2 mm</td></tr><tr><td>Standard / fit reference</td><td>GB/T 3478.1-1995 / 6h — verify against the motor drawing</td></tr>
+        </tbody></table>
+        <div class="info-box">Before manufacturing release, verify spline form, tolerance/fit, engagement length and critical diameters against an authoritative drawing or measured inspection. A near match is not an exact-fit confirmation.</div>
+      </section>
+      <section id="concepts">
+        <h2>03. Design decisions</h2>
+        <div class="process-grid">
+          <div class="process-card"><strong>Threaded retention — rejected</strong><p>Would require a thread or modification that the motor manufacturer would not permit.</p></div>
+          <div class="process-card"><strong>Welded or modified coupling — rejected</strong><p>Not acceptable because the motor must remain unmodified; heat near the motor was also a concern.</p></div>
+          <div class="process-card"><strong>OEM splined sprocket — difficult to source</strong><p>A suitably matching standard component was difficult to find, making ratio changes and future availability important constraints.</p></div>
+          <div class="process-card"><strong>Separate adapter and replaceable sprocket — selected direction</strong><p>Keep the motor-side spline adapter separate, and use a sprocket-side interface that can accept different tooth counts without needing a new motor spline adapter each time.</p></div>
+        </div>
+      </section>
+      <section id="design">
+        <h2>04. CAD development and design progression</h2>
+        <p>The adapter concept shown at the top uses a spline body with four projecting mounting ears. The updated CAD view below presents the later circular-flange direction. Manufacturing review also highlighted that drilled holes and non-axisymmetric features require appropriate milling/drilling operations rather than simple lathe turning alone.</p>
+        <figure class="gallery-item wide cad-figure"><img src="../assets/images/case-spline-adapter-updated-cad-round-flange.png" alt="Updated CAD spline adapter with a circular flange and spline sections on the shaft"><figcaption><strong>Updated CAD design:</strong> revised circular flange and spline geometry. This is the updated model supplied for the case study, shown separately from the earlier concept above.</figcaption></figure>
+        <h3>Design for manufacture</h3>
+        <ul>
+          <li>A round flange profile is more compatible with turning operations than square outer blocks when the feature is intended to be turned.</li>
+          <li>Mounting holes still require appropriate drilling or milling; they should not be described as lathe-only features.</li>
+          <li>Add suitable fillets at geometry transitions to avoid unnecessarily sharp internal corners and to support manufacturability.</li>
+          <li>Add chamfers to appropriate edges and spline lead-ins to ease assembly and remove sharp edges, while preserving critical fit dimensions.</li>
+        </ul>
+        <div class="info-box">The updated CAD is a design refinement, not proof that every feature is manufacturable with one operation. Final process planning should match the chosen machine setup, tolerances and material.</div>
+      </section>
+      <section id="sprocket">
+        <h2>05. Sprocket-side component and ratio flexibility</h2>
+        <p>The sprocket is a separate driven component; the example below depicts a sprocket with an internally splined bore, not a flange intended to be attached to or machined into the motor. It illustrates the sprocket-side part considered during sourcing.</p>
+        <figure class="gallery-item square-figure"><img src="../assets/images/case-spline-sprocket-cad-reference.png" alt="CAD reference image of a sprocket with an internally splined bore"><figcaption>CAD reference of the sprocket component only. It is separate from the motor-side adapter and is not presented as a manufactured or validated final sprocket.</figcaption></figure>
+        <p>The project direction moved toward a keyed-bore sprocket interface because sprockets with a common bore/keyway can make it easier to source different tooth counts. The aim is to retain the same motor-side spline adapter and change the sprocket when the required ratio changes, subject to checking bore size, key dimensions, fit and availability.</p>
+      </section>
+      <section id="prototype">
+        <h2>06. Prototype fit check</h2>
+        <p>A physical prototype was used to check engagement with the existing motor-side spline and the fit of the adapter/sprocket arrangement. You reported that it fitted without noticeable play during the initial fit check. This is a useful prototype observation, but it does not verify torque capacity, fatigue life or retention at maximum RPM.</p>
+        <div class="project-gallery">
+          <figure class="gallery-item photo-figure"><img src="../assets/images/case-spline-adapter-prototype-in-hand.jpg" alt="Prototype adapter and sprocket held by hand during initial fit check"><figcaption>Prototype adapter and sprocket used for the initial fit check.</figcaption></figure>
+          <figure class="gallery-item photo-figure"><img src="../assets/images/case-spline-adapter-installed-on-motor.jpg" alt="Adapter and sprocket installed on the motor for fit reference"><figcaption>Adapter/sprocket assembly installed on the motor for fit reference.</figcaption></figure>
+        </div>
+      </section>
+      <section id="retention">
+        <h2>07. Axial movement control</h2>
+        <p>The prototype direction uses an O-ring as a simple feature intended to help control axial play, inspired by an axle-coupling arrangement. The spline and sprocket-side interface transmit torque; the O-ring should not be treated as the sole safety-critical high-speed retainer.</p>
+        <div class="info-box">Before operation, the retention method needs verification under expected vibration, temperature, speed and service conditions. Confirm groove geometry, O-ring compression and retention force; use a positive retention feature if required by the final engineering assessment.</div>
+      </section>
+      <section id="loadpath">
+        <h2>08. Chain load and bending-moment concern</h2>
+        <p>Chain tension at the sprocket creates a transverse load. If the chain load plane is offset from the motor’s effective support, this produces a bending moment in addition to transmitted drive torque. The design objective is to avoid unnecessary overhang and unsupported length.</p>
+        <p>A full structural assessment should use the actual chain force, sprocket pitch radius, offset, spline engagement length, adapter material and support arrangement. The load and moment should be derived from the operating case rather than assumed from the geometry alone.</p>
+      </section>
+      <section id="fea">
+        <h2>09. Preliminary ANSYS factor-of-safety result</h2>
+        <div class="result-callout"><div class="result-number">1.8</div><div><strong>Minimum factor of safety reported in supplied screenshot</strong><p>The displayed legend spans approximately 1.78–2.50.</p></div></div>
+        <figure class="gallery-item wide"><img src="../assets/images/case-spline-adapter-ansys-factor-of-safety.png" alt="ANSYS static structural factor-of-safety contour showing a reported minimum factor of safety of 1.8"><figcaption>Supplied ANSYS static-adapter result. Reported minimum factor of safety: 1.8.</figcaption></figure>
+        <p>This is the only adapter simulation result currently available. The screenshot does not establish the full material card, applied torque and chain load, contact definitions, support conditions or mesh sensitivity. Do not assume it validates the updated CAD geometry unless that exact geometry and load case are re-solved.</p>
+        <div class="info-box"><strong>Interpretation:</strong> the screenshot records a preliminary static result only. It does not verify fatigue, spline contact, key strength, dynamic balance, high-RPM retention or operating safety.</div>
+      </section>
+      <section id="outcome">
+        <h2>10. Current outcome</h2>
+        <p>The initial prototype fit check was completed and the adapter fitted without noticeable play at that stage. The updated CAD refines the geometry toward a rounded flange, with fillets and chamfers to be added or finalized for manufacturing. The sprocket remains a separate, replaceable component so ratio changes can be made without redesigning the motor-side spline interface.</p>
+        <p>The next design step is to finish the manufacturing details and verify the actual load path, chain-force bending, material properties and retention method. The current evidence supports the CAD progression and initial fit check; it does not yet establish a production-ready or high-speed-validated part.</p>
+      </section>
+      <section id="next">
+        <h2>11. Next validation steps</h2>
+        <ul class="checklist">
+          <li>Confirm the motor spline dimensions, fit and engagement length.</li>
+          <li>Finalize fillets, chamfers and machinable details on the updated CAD.</li>
+          <li>Confirm sprocket bore/key dimensions and availability across intended tooth counts.</li>
+          <li>Measure assembled radial and axial runout.</li>
+          <li>Calculate transmitted torque, chain tension and overhung bending loads.</li>
+          <li>Re-run ANSYS on the updated geometry using documented material properties, loads, contacts and supports.</li>
+          <li>Review mesh sensitivity and the stress around spline, flange and key interfaces.</li>
+          <li>Assess positive retention, dynamic balance and safe operation before vehicle use.</li>
+        </ul>
+      </section>
+    </article>
+    <aside class="project-sidebar">
+      <h3>ON THIS PAGE</h3>
+      <a href="#problem">Problem statement</a><a href="#constraints">Constraints</a><a href="#concepts">Design decisions</a><a href="#design">CAD & manufacture</a><a href="#sprocket">Sprocket reference</a><a href="#prototype">Prototype fit</a><a href="#retention">Axial movement</a><a href="#loadpath">Chain load</a><a href="#fea">ANSYS result</a><a href="#outcome">Current outcome</a><a href="#next">Next validation</a>
+      <hr style="border:0;border-top:1px solid #293746;margin:16px 0">
+      <h3>PROJECT STATUS</h3>
+      <p class="small-note">Updated CAD + initial prototype fit check documented.</p><p class="small-note">Structural and high-RPM validation pending.</p><a href="#top">↑ Back to top</a>
+    </aside>
+  </div>
+</main>
+<footer class="site-footer container"><span>© 2026 Ujjval Jha</span><span>Case study review</span><a href="mailto:xenetronmac@gmail.com">xenetronmac@gmail.com</a></footer>
+</body>
+</html>
